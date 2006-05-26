@@ -1,1 +1,1 @@
-require File.dirname(__FILE__) + "/lib/enumerable.rb"
+require File.dirname(__FILE__) + "/enumerable"
