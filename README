@@ -11,5 +11,5 @@ If you want to use this module in a Rails application, put this folder
 in the "lib" directory of your application, and then put the following
 code at the end of your config/environment.rb:
 
-  require 'extensions/extensions'
+  require 'extensions/all'
 

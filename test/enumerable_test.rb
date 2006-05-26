@@ -1,5 +1,5 @@
 require 'test/unit'
-require File.dirname(__FILE__) + "/../lib/enumerable.rb"
+require File.dirname(__FILE__) + "/../enumerable.rb"
 
 class EnumerableTest < Test::Unit::TestCase
 	def test_sum
