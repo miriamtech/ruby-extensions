@@ -1,7 +1,9 @@
 module Enumerable
 	def catalog(&block)
-		hashBuilder = self.collect { |each| [each, yield(each)] }.flatten 
-		Hash[*hashBuilder]
+		pairs = self.collect { |each| [each, yield(each)] }
+		result = Hash.new
+		pairs.each { |pair| result[pair.first] = pair.last }
+		result
 	end
 	
 	def sum
