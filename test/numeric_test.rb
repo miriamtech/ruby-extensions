@@ -7,4 +7,11 @@ class NumericTest < Test::Unit::TestCase
 		assert_equal 5, 4.51.roundTo(0)
 		assert_equal 4.51, 4.51.roundTo(2)
 	end
+	
+	def test_niceString
+		assert_equal '4.5', 4.5.niceString
+		assert_equal '4', 4.niceString
+		assert_equal '4', (4.0).niceString
+		assert_equal '-1.2', (-1.2000).niceString
+	end
 end
