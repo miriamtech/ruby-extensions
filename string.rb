@@ -12,4 +12,40 @@ class String
 			"&##{value};"
 		end
 	end
+	def characterWrap (n)
+	  newString = ''
+	  start = 0
+	  while start + n < self.size
+	    newString += "#{self[start..start + n - 1]}\n"
+	    start += n
+    end
+    newString += self[start..self.size]
+  end
+  def wordWrap (maxWordSize)
+    newString = ''
+    lastBreakpoint = 0
+    possibleBreakpoint = nil
+    i = 0
+    currentWordSize = 0
+    while i < self.size
+      currentWordSize += 1
+      if self[i..i] == ' '
+        possibleBreakpoint = i
+      end
+      if currentWordSize == maxWordSize
+        if possibleBreakpoint
+          newString += self[lastBreakpoint..possibleBreakpoint - 1] + "\n"
+          lastBreakpoint = i + 1
+          possibleBreakpoint = nil
+        else
+          newString += self[lastBreakpoint..i] + "\n"
+          lastBreakpoint = i + 1
+        end
+        currentWordSize = 0
+      end
+      i += 1
+    end
+    newString += self[lastBreakpoint..self.size]
+    return newString
+  end
 end
