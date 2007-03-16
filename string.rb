@@ -46,6 +46,6 @@ class String
       i += 1
     end
     newString += self[lastBreakpoint..self.size]
-    return newString
+    return newString.gsub(/\n /, "\n")
   end
 end
