@@ -22,6 +22,7 @@ class String
     newString += self[start..self.size]
   end
   def wordWrap (maxWordSize)
+    # "a fellow named anthony struggles to program"
     newString = ''
     lastBreakpoint = 0
     possibleBreakpoint = nil
@@ -35,17 +36,19 @@ class String
       if currentWordSize == maxWordSize
         if possibleBreakpoint
           newString += self[lastBreakpoint..possibleBreakpoint - 1] + "\n"
-          lastBreakpoint = i + 1
+          lastBreakpoint = possibleBreakpoint + 1
+          currentWordSize = i - possibleBreakpoint
           possibleBreakpoint = nil
         else
           newString += self[lastBreakpoint..i] + "\n"
           lastBreakpoint = i + 1
+          currentWordSize = 0
         end
-        currentWordSize = 0
       end
       i += 1
     end
     newString += self[lastBreakpoint..self.size]
-    return newString.gsub(/\n /, "\n")
+    return newString.gsub(/\n /, "\n").gsub(/\n+/, "\n")
   end
+
 end
