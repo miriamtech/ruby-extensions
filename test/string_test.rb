@@ -20,4 +20,13 @@ class NumericTest < Test::Unit::TestCase
     assert_equal "aaa\nbbbb\ncc", 'aaa bbbb cc'.wordWrap(4)
     assert_equal "a\nfello\nw\nnamed\nantho\nny\nstrug\ngles\nto\nprogr\nam", "a fellow named anthony struggles to program".wordWrap(5)
   end
+  
+  def test_cutMiddle
+    assert_equal 'Kyle', 'Kyle'.cutMiddle(4)
+    assert_equal 'K...sting', 'Kyle Testing'.cutMiddle(9)
+    assert_equal 'Ky...ng', 'Kyle Testing'.cutMiddle(7, 2)
+    assert_equal '_show...a.rhtml', '_showAttachedPicturesasdffdsaasdffda.rhtml'.cutMiddle(15, 7)
+    assert_equal 'T...g', 'ThisIsNotWorking'.cutMiddle(5)
+    assert_equal 'T...g', 'ThisIsNotWorking'.cutMiddle(1)
+  end
 end

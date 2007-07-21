@@ -12,6 +12,7 @@ class String
 			"&##{value};"
 		end
 	end
+	
 	def characterWrap (n)
 	  newString = ''
 	  start = 0
@@ -21,6 +22,7 @@ class String
     end
     newString += self[start..self.size]
   end
+  
   def wordWrap (maxWordSize)
     # "a fellow named anthony struggles to program"
     newString = ''
@@ -51,4 +53,27 @@ class String
     return newString.gsub(/\n /, "\n").gsub(/\n+/, "\n")
   end
 
+  def cutMiddle(limit, tailSize=5)
+    if self.length > limit
+      if limit <= (tailSize + 3)
+        tailSize = limit - 3
+      end
+      headSize = limit - tailSize - 3 # 3 extra for the ellipses generated.
+      if headSize <= 0
+        makeup = (-headSize / 2.0).ceil
+
+        headSize = tailSize - makeup
+        if headSize <= 0
+          headSize = tailSize =  1
+        end
+
+        if limit < (headSize + 3 + tailSize)
+          headSize = tailSize = 1
+        end
+      end
+    	return self[0, headSize] + '...' + self[-tailSize, tailSize]
+    else
+    	return self
+    end
+  end
 end
