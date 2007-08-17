@@ -52,7 +52,14 @@ class String
     newString += self[lastBreakpoint..self.size]
     return newString.gsub(/\n /, "\n").gsub(/\n+/, "\n")
   end
-
+  
+  def repeat (times)
+    newString = ''
+    times.times do
+      newString += self
+    end
+    return newString
+  end
   def cutMiddle(limit, tailSize=5)
     if self.length > limit
       if limit <= (tailSize + 3)
