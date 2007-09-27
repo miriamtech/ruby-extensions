@@ -60,6 +60,7 @@ class String
     end
     return newString
   end
+  
   def cutMiddle(limit, tailSize=5)
     if self.length > limit
       if limit <= (tailSize + 3)
