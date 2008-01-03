@@ -4,4 +4,7 @@ class Date
     d += 1 while Date.valid_civil?(y, m, d)
     d - 1
   end
+  def beginning_of_week
+    self - self.wday
+  end
 end
