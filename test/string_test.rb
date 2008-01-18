@@ -33,4 +33,9 @@ class NumericTest < Test::Unit::TestCase
     assert_equal 'T...g', 'ThisIsNotWorking'.cutMiddle(5)
     assert_equal 'T...g', 'ThisIsNotWorking'.cutMiddle(1)
   end
+  def test_truncateWithEllipsis
+    assert_equal 'I like...', 'I like chicken, I like liver, meow mix, meow mix, please deliver'.truncateWithEllipsis(12)
+    assert_equal 'I like...', 'I like chicken, I like liver, meow mix, meow mix, please deliver'.truncateWithEllipsis(9)
+    assert_equal 'I like chicken...', 'I like chicken, I like liver, meow mix, meow mix, please deliver'.truncateWithEllipsis(18)
+  end
 end

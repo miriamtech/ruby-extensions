@@ -13,6 +13,22 @@ class String
 		end
 	end
 	
+	def truncateWithEllipsis(n)
+	  if self.size <= n
+	    return self
+	  else
+	    keptWords = []
+	    allWords = self.split(/ +/)
+	    allWords.each do |word|
+	      if (keptWords + [word]).join(' ').size > n - 3
+	        break
+        end
+        keptWords << word
+      end
+      return keptWords.join(' ').gsub(/[,.]$/, '') + '...'
+    end
+  end
+	
 	def characterWrap (n)
 	  newString = ''
 	  start = 0
