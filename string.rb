@@ -25,7 +25,7 @@ class String
         end
         keptWords << word
       end
-      return keptWords.join(' ').gsub(/[,.]$/, '') + '...'
+      return keptWords.join(' ').gsub(/[- ,.]+$/, '') + '...'
     end
   end
 	
