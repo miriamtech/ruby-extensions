@@ -14,19 +14,20 @@ class String
 	end
 	
 	def truncateWithEllipsis(n)
-	  if self.size <= n
-	    return self
-	  else
-	    keptWords = []
-	    allWords = self.split(/ +/)
-	    allWords.each do |word|
-	      if (keptWords + [word]).join(' ').size > n - 3
-	        break
-        end
-        keptWords << word
+	  return self if self.size <= n
+	  return self[0..n-1].strip + '…'
+  end
+	def truncateToWordWithEllipsis(n)
+	  return self if self.size <= n
+    keptWords = []
+    allWords = self.split(/ +/)
+    allWords.each do |word|
+      if (keptWords + [word]).join(' ').size > n - 1
+        break
       end
-      return keptWords.join(' ').gsub(/[- ,.]+$/, '') + '...'
+      keptWords << word
     end
+    return keptWords.join(' ').gsub(/[- ,.]+$/, '') + '…'
   end
 	
 	def characterWrap (n)
