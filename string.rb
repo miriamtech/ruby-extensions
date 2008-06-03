@@ -1,4 +1,14 @@
 class String
+	def currencyAsFloat
+		matchData = self.match(/^[$]?[ ]?(([\d]{1,3}[,]?)+)([\.]([\d]{1,2})?)?$/)
+		return nil if matchData.nil?
+		return (matchData[1].to_s + matchData[3].to_s).gsub(',', '').to_f
+	end
+	
+	def isValidCurrency
+		return !self.currencyAsFloat.nil?
+	end
+	
 	def xmlEscapeUTF8
 		self.gsub(/([\xc0-\xdf][\x80-\xbf])|([\xe0-\xef][\x80-\xbf]{2})|([\xf0-\xf7][\x80-\xbf]{3})/) do
 			b2, b3, b4 = $1, $2, $3
