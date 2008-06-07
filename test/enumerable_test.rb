@@ -9,4 +9,25 @@ class EnumerableTest < Test::Unit::TestCase
 		assert_equal 3, result["BCD"].first
 		assert_equal 7, result["EFGHIJK"].first
 	end
+	
+	def test_sortCarefullyBy
+		long = [
+			{:i => 1, :name => 'Same'},
+			{:i => 2, :name => 'Same'},
+			{:i => 3, :name => 'Same'},
+			{:i => 4, :name => 'Same'},
+			{:i => 5, :name => 'Same'},
+			{:i => 6, :name => 'Same'},
+			{:i => 7, :name => 'Same'},
+			{:i => 8, :name => 'Same'},
+			{:i => 9, :name => 'Same'},
+			{:i => 10, :name => 'Diff'},
+			{:i => 11, :name => 'Same'},
+			{:i => 12, :name => 'Same'}
+			]
+		sorted = long.sortCarefullyBy { |each| each[:name] }
+		assert_equal [10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12], sorted.collect { |each| each[:i] }
+		sorted = sorted.sortCarefullyBy { |each| each[:i] % 2 }
+		assert_equal [10, 2, 4, 6, 8, 12, 1, 3, 5, 7, 9, 11], sorted.collect { |each| each[:i] }
+	end
 end
