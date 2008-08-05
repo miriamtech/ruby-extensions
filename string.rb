@@ -111,4 +111,8 @@ class String
     	return self
     end
   end
+  
+  def trim
+    self.gsub(/(^\s+|\s+$)/, '')
+  end
 end

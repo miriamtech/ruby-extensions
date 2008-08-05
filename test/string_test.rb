@@ -38,4 +38,9 @@ class NumericTest < Test::Unit::TestCase
     assert_equal 'I like…', 'I like chicken, I like liver, meow mix, meow mix, please deliver'.truncateToWordWithEllipsis(9)
     assert_equal 'I like chicken…', 'I like chicken, I like liver, meow mix, meow mix, please deliver'.truncateToWordWithEllipsis(16)
   end
+  def test_trim
+    self.assert_equal 'testing 1, 2, 3', '    testing 1, 2, 3 '.trim    
+    self.assert_equal 'testing 1, 2, 3', "\t\ttesting 1, 2, 3\t  \t".trim
+    self.assert_equal 'testing 1, 2, 3', "testing 1, 2, 3\n".trim
+  end
 end
