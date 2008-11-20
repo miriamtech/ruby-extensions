@@ -23,11 +23,11 @@ class String
 		end
 	end
 	
-	def truncateWithEllipsis(n)
+	def truncateWithEllipsis(n, options={})
 	  return self if self.size <= n
-	  return self[0..n-1].strip + '…'
+	  return self[0..n-1].strip + (options[:usePeriods] ? '...' : '…')
   end
-	def truncateToWordWithEllipsis(n)
+	def truncateToWordWithEllipsis(n, options={})
 	  return self if self.size <= n
     keptWords = []
     allWords = self.split(/ +/)
@@ -37,7 +37,7 @@ class String
       end
       keptWords << word
     end
-    return keptWords.join(' ').gsub(/[- ,.]+$/, '') + '…'
+    return keptWords.join(' ').gsub(/[- ,.]+$/, '') + (options[:usePeriods] ? '...' : '…')
   end
 	
 	def characterWrap (n)
