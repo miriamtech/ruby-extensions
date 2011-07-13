@@ -1,8 +1,11 @@
 class Date
   def days_in_month
     d, m, y = mday, month, year
-    d += 1 while Date.valid_civil?(y, m, d)
+    d += 1 while self.class.valid_civil?(y, m, d)
     d - 1
+  end
+  def end_of_month
+    self.class.new(self.year, self.month, self.days_in_month)
   end
   def beginning_of_week
     self - self.wday
