@@ -30,4 +30,11 @@ class EnumerableTest < Test::Unit::TestCase
 		sorted = sorted.sortCarefullyBy { |each| each[:i] % 2 }
 		assert_equal [10, 2, 4, 6, 8, 12, 1, 3, 5, 7, 9, 11], sorted.collect { |each| each[:i] }
 	end
+	
+	def test_conjunct
+	  assert_equal 'Apples, Oranges and Pears', ['Apples', 'Oranges', 'Pears'].conjunct
+	  assert_equal 'Apples and Oranges', ['Apples', 'Oranges'].conjunct
+	  assert_equal 'Apples', ['Apples'].conjunct
+	  assert_equal '', [].conjunct
+	end
 end

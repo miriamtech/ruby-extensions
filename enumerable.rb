@@ -18,4 +18,16 @@ module Enumerable
 			end
 		end
 	end
+	
+	def conjunct
+	  if self.size == 0
+	    return ''
+	  elsif self.size == 1
+	    return self.first
+	  else
+	    string = self[0..-2].join(', ')
+	    string += " and #{self[-1]}"
+	    return string
+    end
+	end
 end
