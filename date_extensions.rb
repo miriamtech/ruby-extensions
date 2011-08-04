@@ -24,4 +24,7 @@ class Date
       return Date.new(year, month, Date.new(year, month, 1).days_in_month)
     end
   end
+  def to_time
+    Time.local(self.year, self.month, self.day, 0, 0, 0)
+  end
 end
