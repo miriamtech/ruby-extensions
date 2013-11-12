@@ -28,4 +28,8 @@ class EnumerableTest < Test::Unit::TestCase
 		@notNil.ifNotNil { |arg| parameter = arg }
 		assert_equal @notNil, parameter
 	end
+
+	def test_prune
+		assert_equal nil, nil.prune
+	end
 end

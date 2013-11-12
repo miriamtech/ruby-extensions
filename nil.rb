@@ -4,6 +4,10 @@ class NilClass
 	end
 	def ifNotNil(&block)
 	end
+
+	def prune
+		self
+	end
 end
 
 class Object

@@ -113,6 +113,15 @@ class String
   end
   
   def trim
-    self.gsub(/(^\s+|\s+$)/, '')
+    self.gsub("\302\240", "").gsub(/(^\s+|\s+$)/, '')
+  end
+
+  def prune
+    stripped = self.trim
+    if stripped.empty?
+      nil
+    else
+      stripped
+    end
   end
 end
