@@ -4,7 +4,12 @@ class Numeric
 	end
 	
 	def niceString
-		myString = self.to_s
-		myString.match(/\./) ? myString.gsub(/\.0+$/, "") : myString
+    # Deprecated in favor of concisely
+    concisely
 	end
+
+  def concisely
+    myString = self.to_s
+    myString.match(/\./) ? myString.gsub(/\.0+$/, "") : myString    
+  end
 end
