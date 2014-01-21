@@ -124,4 +124,8 @@ class String
       stripped
     end
   end
+
+  def format_as_concise_number
+    self.match(/\./) ? self.gsub(/\.0+$/, "") : self.clone    
+  end
 end

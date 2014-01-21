@@ -9,7 +9,6 @@ class Numeric
 	end
 
   def concisely
-    myString = self.to_s
-    myString.match(/\./) ? myString.gsub(/\.0+$/, "") : myString    
+    self.to_s.format_as_concise_number
   end
 end
