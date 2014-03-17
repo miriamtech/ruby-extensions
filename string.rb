@@ -131,15 +131,5 @@ class String
     return clone unless match(regular_number_regex) or match(scientific_notation_regex)
     return gsub(/\.0+$/, '') if match(/\.0+$/)
     to_f.to_s
-
-
-    # if match(scientific_notation_regex)
-    #   return self.to_f.to_s
-    #  end
-    # if match(/\.0+$/)
-    #   gsub(/\.0+$/, '')
-    # else
-    #   gsub(/0+$/, '')
-    # end
   end
 end
