@@ -1,7 +1,7 @@
 require 'test/unit'
 require File.dirname(__FILE__) + "/../string.rb"
 
-class NumericTest < Test::Unit::TestCase
+class StringTest < Test::Unit::TestCase
 	def test_xmlEscapeUTF8
 		# Two-byte
 		assert_equal '&#1488;', "א".xmlEscapeUTF8
