@@ -125,11 +125,18 @@ class String
     end
   end
 
-  def format_as_concise_number
+  def format_conservitavely_as_concise_number
     regular_number_regex = /^[,0-9]+\.[0-9]+$/
     scientific_notation_regex = /^[,0-9]+\.[0-9]+e-[0-9]+$/i
     return clone unless match(regular_number_regex) or match(scientific_notation_regex)
     return gsub(/\.0+$/, '') if match(/\.0+$/)
     to_f.to_s
+  end
+  def format_as_concise_number(rounded_if_larger_than=nil)
+    concise = format_conservitavely_as_concise_number
+    digit_count = concise.gsub('.', '').size
+    return concise if rounded_if_larger_than.nil? or digit_count <= rounded_if_larger_than
+    mantissa_count = concise.gsub(/^[0-9]+\./, '').size
+    return concise.to_f.roundTo(rounded_if_larger_than-(digit_count-mantissa_count)).to_s
   end
 end

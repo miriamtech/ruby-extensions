@@ -1,5 +1,6 @@
 require 'test/unit'
-require File.dirname(__FILE__) + "/../string.rb"
+require File.dirname(__FILE__) + "/../string"
+require File.dirname(__FILE__) + "/../numeric"
 
 class StringTest < Test::Unit::TestCase
 	def test_xmlEscapeUTF8
@@ -64,5 +65,11 @@ class StringTest < Test::Unit::TestCase
   end
   def test_format_as_concise_number_doesnt_touch_what_it_doesnt_know
     assert_equal 'One thousand.00', 'One thousand.00'.format_as_concise_number
+  end
+  def test_format_as_concise_number_rounded
+    assert_equal '10.45', '10.450'.format_as_concise_number(5)
+    assert_equal '10.456', '10.456'.format_as_concise_number(5)
+    assert_equal '10.457', '10.456789'.format_as_concise_number(5)
+    assert_equal '0.0334', '0.03344995'.format_as_concise_number(5)
   end
 end
