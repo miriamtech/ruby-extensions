@@ -73,6 +73,7 @@ class StringTest < Test::Unit::TestCase
     assert_equal '10.46', '10.456789'.format_as_concise_number(:significant_digits => 4)
     assert_equal '0.0334', '0.03344995'.format_as_concise_number(:significant_digits => 5)
     assert_equal '0.033', '0.03344995'.format_as_concise_number(:significant_digits => 4)
+    assert_equal '6', '6.01'.format_as_concise_number(:significant_digits => 2)
   end
   def test_format_as_concise_number_places
     assert_equal '10.45', '10.450'.format_as_concise_number(:places => 5)
@@ -81,6 +82,7 @@ class StringTest < Test::Unit::TestCase
     assert_equal '10.4568', '10.456789'.format_as_concise_number(:places => 4)
     assert_equal '0.03345', '0.03344995'.format_as_concise_number(:places => 5)
     assert_equal '0.0334', '0.03344995'.format_as_concise_number(:places => 4)
+    assert_equal '6', '6.01'.format_as_concise_number(:places => 1)
   end
   def test_format_as_concise_number_improper_options
     assert_raise(RuntimeError) { '10.450'.format_as_concise_number(:foo => 5) }

@@ -140,9 +140,10 @@ class String
       digit_count = concise.gsub('.', '').size
       return concise if digit_count <= significant_digits
       mantissa_count = concise.gsub(/^[0-9]+\./, '').size
-      return concise.to_f.roundTo(significant_digits-(digit_count-mantissa_count)).to_s
+      rounded_number = concise.to_f.roundTo(significant_digits-(digit_count-mantissa_count))
+      return rounded_number.to_s.format_as_concise_number
     elsif places = options[:places]
-      return concise.to_f.roundTo(places).to_s
+      return concise.to_f.roundTo(places).to_s.format_as_concise_number
     else
       raise "Unsupported option #{options.keys.first}"
     end
