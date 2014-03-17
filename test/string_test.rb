@@ -53,4 +53,16 @@ class StringTest < Test::Unit::TestCase
     self.assert_equal nil, "\t".prune
     self.assert_equal nil, "\302\240".prune
   end
+
+  def test_format_as_concise_number
+    assert_equal '1.2', '1.20'.format_as_concise_number
+    assert_equal '1', '1.00'.format_as_concise_number
+    assert_equal '1,000', '1,000.00'.format_as_concise_number
+    assert_equal '0.03344995', '3.344995E-02'.format_as_concise_number
+    assert_equal '0.0001', '1.0000e-04'.format_as_concise_number
+    assert_equal '1.0e-08', '1.0e-08'.format_as_concise_number
+  end
+  def test_format_as_concise_number_doesnt_touch_what_it_doesnt_know
+    assert_equal 'One thousand.00', 'One thousand.00'.format_as_concise_number
+  end
 end
