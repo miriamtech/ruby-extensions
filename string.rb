@@ -132,11 +132,19 @@ class String
     return gsub(/\.0+$/, '') if match(/\.0+$/)
     to_f.to_s
   end
-  def format_as_concise_number(rounded_if_larger_than=nil)
+  def format_as_concise_number(options={})
     concise = format_conservitavely_as_concise_number
-    digit_count = concise.gsub('.', '').size
-    return concise if rounded_if_larger_than.nil? or digit_count <= rounded_if_larger_than
-    mantissa_count = concise.gsub(/^[0-9]+\./, '').size
-    return concise.to_f.roundTo(rounded_if_larger_than-(digit_count-mantissa_count)).to_s
+    return concise if options.empty?
+    raise "Use only one option at a time" if options.size > 1
+    if significant_digits = options[:significant_digits]
+      digit_count = concise.gsub('.', '').size
+      return concise if digit_count <= significant_digits
+      mantissa_count = concise.gsub(/^[0-9]+\./, '').size
+      return concise.to_f.roundTo(significant_digits-(digit_count-mantissa_count)).to_s
+    elsif places = options[:places]
+      return concise.to_f.roundTo(places).to_s
+    else
+      raise "Unsupported option #{options.keys.first}"
+    end
   end
 end

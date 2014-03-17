@@ -66,10 +66,24 @@ class StringTest < Test::Unit::TestCase
   def test_format_as_concise_number_doesnt_touch_what_it_doesnt_know
     assert_equal 'One thousand.00', 'One thousand.00'.format_as_concise_number
   end
-  def test_format_as_concise_number_rounded
-    assert_equal '10.45', '10.450'.format_as_concise_number(5)
-    assert_equal '10.456', '10.456'.format_as_concise_number(5)
-    assert_equal '10.457', '10.456789'.format_as_concise_number(5)
-    assert_equal '0.0334', '0.03344995'.format_as_concise_number(5)
+  def test_format_as_concise_number_significant_digits
+    assert_equal '10.45', '10.450'.format_as_concise_number(:significant_digits => 5)
+    assert_equal '10.456', '10.456'.format_as_concise_number(:significant_digits => 5)
+    assert_equal '10.457', '10.456789'.format_as_concise_number(:significant_digits => 5)
+    assert_equal '10.46', '10.456789'.format_as_concise_number(:significant_digits => 4)
+    assert_equal '0.0334', '0.03344995'.format_as_concise_number(:significant_digits => 5)
+    assert_equal '0.033', '0.03344995'.format_as_concise_number(:significant_digits => 4)
+  end
+  def test_format_as_concise_number_places
+    assert_equal '10.45', '10.450'.format_as_concise_number(:places => 5)
+    assert_equal '10.456', '10.456'.format_as_concise_number(:places => 5)
+    assert_equal '10.45679', '10.456789'.format_as_concise_number(:places => 5)
+    assert_equal '10.4568', '10.456789'.format_as_concise_number(:places => 4)
+    assert_equal '0.03345', '0.03344995'.format_as_concise_number(:places => 5)
+    assert_equal '0.0334', '0.03344995'.format_as_concise_number(:places => 4)
+  end
+  def test_format_as_concise_number_improper_options
+    assert_raise(RuntimeError) { '10.450'.format_as_concise_number(:foo => 5) }
+    assert_raise(RuntimeError) { '10.450'.format_as_concise_number(:significant_digits => 4, :places => 4) }
   end
 end
