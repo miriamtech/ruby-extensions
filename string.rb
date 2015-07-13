@@ -125,7 +125,27 @@ class String
     end
   end
 
-  def format_as_concise_number
-    self.match(/\./) ? self.gsub(/\.0+$/, "") : self.clone    
+  def format_conservitavely_as_concise_number
+    regular_number_regex = /^[,0-9]+\.[0-9]+$/
+    scientific_notation_regex = /^[,0-9]+\.[0-9]+e-[0-9]+$/i
+    return clone unless match(regular_number_regex) or match(scientific_notation_regex)
+    return gsub(/\.0+$/, '') if match(/\.0+$/)
+    to_f.to_s
+  end
+  def format_as_concise_number(options={})
+    concise = format_conservitavely_as_concise_number
+    return concise if options.empty?
+    raise "Use only one option at a time" if options.size > 1
+    if significant_digits = options[:significant_digits]
+      digit_count = concise.gsub('.', '').size
+      return concise if digit_count <= significant_digits
+      mantissa_count = concise.gsub(/^[0-9]+\./, '').size
+      rounded_number = concise.to_f.roundTo(significant_digits-(digit_count-mantissa_count))
+      return rounded_number.to_s.format_as_concise_number
+    elsif places = options[:places]
+      return concise.to_f.roundTo(places).to_s.format_as_concise_number
+    else
+      raise "Unsupported option #{options.keys.first}"
+    end
   end
 end
