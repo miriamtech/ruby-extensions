@@ -10,7 +10,7 @@ class String
 	end
 	
 	def xmlEscapeUTF8
-		self.gsub(/([\xc0-\xdf][\x80-\xbf])|([\xe0-\xef][\x80-\xbf]{2})|([\xf0-\xf7][\x80-\xbf]{3})/) do
+		self.gsub(Regexp.new('([\xc0-\xdf][\x80-\xbf])|([\xe0-\xef][\x80-\xbf]{2})|([\xf0-\xf7][\x80-\xbf]{3})')) do
 			b2, b3, b4 = $1, $2, $3
 			if b2
 				value = ((b2[0] & 0x1F) << 6) + (b2[1] & 0x3f)
