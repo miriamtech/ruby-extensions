@@ -1,34 +1,35 @@
 class String
-	def currencyAsFloat
-		matchData = self.match(/^[$]?[ ]?(([\d]{1,3}[,]?)+)([\.]([\d]{1,2})?)?$/)
-		return nil if matchData.nil?
-		return (matchData[1].to_s + matchData[3].to_s).gsub(',', '').to_f
-	end
-	
-	def isValidCurrency
-		return !self.currencyAsFloat.nil?
-	end
-	
-	def xmlEscapeUTF8
-		self.gsub(Regexp.new('([\xc0-\xdf][\x80-\xbf])|([\xe0-\xef][\x80-\xbf]{2})|([\xf0-\xf7][\x80-\xbf]{3})')) do
-			b2, b3, b4 = $1, $2, $3
-			if b2
-				value = ((b2[0] & 0x1F) << 6) + (b2[1] & 0x3f)
-			elsif b3
-				value = ((b3[0] & 0x0F) << 12) + ((b3[1] & 0x3f) << 6) + (b3[2] & 0x3f)
-			elsif b4
-				value = ((b4[0] & 0x07) << 17) + ((b4[1] & 0x3f) << 12) + ((b4[2] & 0x3f) << 6) + (b4[3] & 0x3f)
-			end
-			"&##{value};"
-		end
-	end
-	
-	def truncateWithEllipsis(n, options={})
-	  return self if self.size <= n
-	  return self[0..n-1].strip + (options[:usePeriods] ? '...' : '…')
+  def currencyAsFloat
+    matchData = self.match(/^[$]?[ ]?(([\d]{1,3}[,]?)+)([\.]([\d]{1,2})?)?$/)
+    return nil if matchData.nil?
+    return (matchData[1].to_s + matchData[3].to_s).gsub(',', '').to_f
   end
-	def truncateToWordWithEllipsis(n, options={})
-	  return self if self.size <= n
+
+  def isValidCurrency
+    return !self.currencyAsFloat.nil?
+  end
+
+  def xmlEscapeUTF8
+    self.gsub(Regexp.new('([\xc0-\xdf][\x80-\xbf])|([\xe0-\xef][\x80-\xbf]{2})|([\xf0-\xf7][\x80-\xbf]{3})')) do
+      b2, b3, b4 = $1, $2, $3
+      if b2
+        value = ((b2[0] & 0x1F) << 6) + (b2[1] & 0x3f)
+      elsif b3
+        value = ((b3[0] & 0x0F) << 12) + ((b3[1] & 0x3f) << 6) + (b3[2] & 0x3f)
+      elsif b4
+        value = ((b4[0] & 0x07) << 17) + ((b4[1] & 0x3f) << 12) + ((b4[2] & 0x3f) << 6) + (b4[3] & 0x3f)
+      end
+      "&##{value};"
+    end
+  end
+
+  def truncateWithEllipsis(n, options={})
+    return self if self.size <= n
+    return self[0..n-1].strip + (options[:usePeriods] ? '...' : '…')
+  end
+
+  def truncateToWordWithEllipsis(n, options={})
+    return self if self.size <= n
     keptWords = []
     allWords = self.split(/ +/)
     allWords.each do |word|
@@ -39,17 +40,17 @@ class String
     end
     return keptWords.join(' ').gsub(/[- ,.]+$/, '') + (options[:usePeriods] ? '...' : '…')
   end
-	
-	def characterWrap (n)
-	  newString = ''
-	  start = 0
-	  while start + n < self.size
-	    newString += "#{self[start..start + n - 1]}\n"
-	    start += n
+
+  def characterWrap (n)
+    newString = ''
+    start = 0
+    while start + n < self.size
+      newString += "#{self[start..start + n - 1]}\n"
+      start += n
     end
     newString += self[start..self.size]
   end
-  
+
   def wordWrap (maxWordSize)
     # "a fellow named anthony struggles to program"
     newString = ''
@@ -79,7 +80,7 @@ class String
     newString += self[lastBreakpoint..self.size]
     return newString.gsub(/\n /, "\n").gsub(/\n+/, "\n")
   end
-  
+
   def repeat (times)
     newString = ''
     times.times do
@@ -87,7 +88,7 @@ class String
     end
     return newString
   end
-  
+
   def cutMiddle(limit, tailSize=5)
     if self.length > limit
       if limit <= (tailSize + 3)
@@ -106,12 +107,12 @@ class String
           headSize = tailSize = 1
         end
       end
-    	return self[0, headSize] + '...' + self[-tailSize, tailSize]
+      return self[0, headSize] + '...' + self[-tailSize, tailSize]
     else
-    	return self
+      return self
     end
   end
-  
+
   def trim
     self.gsub("\302\240", "").gsub(/(^\s+|\s+$)/, '')
   end
@@ -132,6 +133,7 @@ class String
     return gsub(/\.0+$/, '') if match(/\.0+$/)
     to_f.to_s
   end
+
   def format_as_concise_number(options={})
     concise = format_conservitavely_as_concise_number
     return concise if options.empty?
